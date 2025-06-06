@@ -92,20 +92,20 @@ function App() {
   );
 
   const addNode = useCallback(() => {
-    setNodes((prevNodes) => {
-      const newNode: NodeType = {
-        id: (prevNodes.length + 1).toString(),
-        position: { x: Math.random() * 400, y: Math.random() * 400 },
-        type: "custom",
-        data: {
-          displayName: `Node ${prevNodes.length + 1}`,
-          values: createRandomDictionary(2),
-        },
-      };
+    const newNode: NodeType = {
+      id: (nodes.length + 1).toString(),
+      position: { x: Math.random() * 400, y: Math.random() * 400 },
+      type: "custom",
+      data: {
+        displayName: `Node ${nodes.length + 1}`,
+        values: createRandomDictionary(2),
+      },
+    };
 
-      return [...prevNodes, newNode];
-    });
-  }, []);
+    const newNodes = [...nodes, newNode];
+    setNodes(newNodes);
+    setNodesToStore(newNodes);
+  }, [nodes, setNodesToStore]);
 
   const onNodeDragStop = useCallback<OnNodeDrag<NodeType>>(
     (_, __, draggedNodes) => {
